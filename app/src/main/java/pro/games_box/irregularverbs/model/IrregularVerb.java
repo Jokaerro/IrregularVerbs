@@ -32,11 +32,11 @@ public class IrregularVerb {
     }
 
     public String getAllPastSimpleForm(){
-        return pastSimple + "/" + pastSimple2;
+        return pastSimple + (pastSimple2 == null ? "" : "/" + pastSimple2);
     }
 
     public String getAllPastParticipleForm(){
-        return pastParticiple + "/" + pastParticiple2;
+        return pastParticiple + (pastParticiple2 == null ? "" : "/" + pastParticiple2);
     }
 
     public String getAllPastForms(){

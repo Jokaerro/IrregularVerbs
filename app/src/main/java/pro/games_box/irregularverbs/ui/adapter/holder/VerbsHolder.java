@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,5 +35,10 @@ public class VerbsHolder extends RecyclerView.ViewHolder{
         title.setText(verb.getInfinitive().substring(0,1).toUpperCase());
         infinitive.setText(verb.getInfinitive());
         pastForm.setText(verb.getAllPastForms());
+        circleIcon.setImageResource(colors[verb.getGroup()]);
     }
+
+    int[] colors = new int[]{R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark,
+                             R.color.A700, R.color.deepOrange, R.color.orange, R.color.blueGray,
+                             R.color.cyan, R.color.brown};
 }

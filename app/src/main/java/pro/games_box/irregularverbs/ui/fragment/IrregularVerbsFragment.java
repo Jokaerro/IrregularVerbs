@@ -7,6 +7,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,5 +65,8 @@ public class IrregularVerbsFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         verbsRecycler.setLayoutManager(llm);
         verbsRecycler.setAdapter(verbsAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(verbsRecycler.getContext(),
+                llm.getOrientation());
+        verbsRecycler.addItemDecoration(dividerItemDecoration);
     }
 }
