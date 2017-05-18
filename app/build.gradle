@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "pro.games_box.irregularverbs"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -41,4 +41,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
     compile 'com.android.support:support-v4:25.3.1'
+
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
