@@ -42,7 +42,6 @@ public class IrregularVerbsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.verbs_fragment, container, false);
         ButterKnife.bind(this, rootView);
-        EventBus.getDefault().register(this);
 
         Intent intent = new Intent(getContext(), IrregularVerbsSync.class);
         getContext().startService(intent);
@@ -51,13 +50,25 @@ public class IrregularVerbsFragment extends BaseFragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ProgressEvent event) {
         removeProgress();
         showToast(event.message);
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void verbsIncoming(List<IrregularVerb> irregularVerbs) {
         removeProgress();
         verbsAdapter = new IrregularVerbsAdapter(getActivity(), irregularVerbs);

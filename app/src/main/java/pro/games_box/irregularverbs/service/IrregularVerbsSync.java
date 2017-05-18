@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.os.Bundle;
 
+import java.io.IOException;
 import java.util.List;
 
 import pro.games_box.irregularverbs.api.Api;
@@ -42,31 +43,20 @@ public class IrregularVerbsSync extends IntentService {
 
     public boolean onSync() throws InterruptedException {
         verbsResponseCall = Api.getApiService().getVerbs();
-        verbsResponseCall.enqueue(new Callback<List<IrregularVerb>>() {
-            @Override
-            public void onResponse(Call<List<IrregularVerb>> call, Response<List<IrregularVerb>> response) {
-                if (call.equals(verbsResponseCall)) {
-                    List<IrregularVerb> irregularVerbs = ((Response<List<IrregularVerb>>) response).body();
-                    if (response.isSuccessful()) {
-                        try {
-                            Thread.sleep(2000);
-                            EventBus.getDefault().post(irregularVerbs);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        ApiError error = ErrorUtils.parseError(response);
-                        EventBus.getDefault().post(new ProgressEvent("Error: " + error.getMessage()));
-                    }
-                }
+        try {
+            Response<List<IrregularVerb>> response = verbsResponseCall.execute();
+            if(response.isSuccessful()) {
+                List<IrregularVerb> irregularVerbs = response.body();
+                Thread.sleep(2000);
+                EventBus.getDefault().post(irregularVerbs);
             }
-
-            @Override
-            public void onFailure(Call<List<IrregularVerb>> call, Throwable t) {
-                EventBus.getDefault().post(new ProgressEvent("Response fail, check internet please"));
+            if(response.errorBody() != null){
+                ApiError error = ErrorUtils.parseError(response);
+                EventBus.getDefault().post(new ProgressEvent("Error: " + error.getMessage()));
             }
-        });
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
