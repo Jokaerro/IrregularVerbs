@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import pro.games_box.irregularverbs.R;
+import pro.games_box.irregularverbs.model.IrregularVerb;
 import pro.games_box.irregularverbs.model.ProgressEvent;
 import pro.games_box.irregularverbs.service.IrregularVerbsSync;
 
@@ -43,6 +46,12 @@ public class IrregularVerbsFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ProgressEvent event) {
+        removeProgress();
+        showToast(event.message);
+    }
+
+    @Subscribe
+    public void verbsIncoming(List<IrregularVerb> irregularVerbs) {
         removeProgress();
     }
 }
