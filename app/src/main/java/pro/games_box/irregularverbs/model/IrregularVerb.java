@@ -31,6 +31,18 @@ public class IrregularVerb {
         return infinitive;
     }
 
+    public String getAllPastSimpleForm(){
+        return pastSimple + "/" + pastSimple2;
+    }
+
+    public String getAllPastParticipleForm(){
+        return pastParticiple + "/" + pastParticiple2;
+    }
+
+    public String getAllPastForms(){
+        return getAllPastSimpleForm() + "    " + getAllPastParticipleForm();
+    }
+
     public void setInfinitive(String infinitive) {
         this.infinitive = infinitive;
     }

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         >
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@color/colorAccent"
@@ -39,7 +40,7 @@
             android:textSize="16sp"
             />
         <TextView
-            android:id="@+id/form"
+            android:id="@+id/pastForm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/darker_gray"
